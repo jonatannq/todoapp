@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { userStore } from '../../store/userStore'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login(){
 
@@ -31,6 +31,8 @@ function Login(){
                 <input type="password" />
                 <button>Ingresar</button>
             </form>
+
+            <Link to="/registro">Registrarse</Link>
 
         </div>
     )

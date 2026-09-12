@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { userStore } from '../../store/userStore'
+import ListTasks from '../../components/listTasks/listTasks'
+import FormInput from '../../components/formInput/formInput'
+
 function Home() {
 
     const user = userStore((state) => state.user)
-
-    const [task, setTask] = useState("")
+    
+    
     const [tasks, setTasks] = useState([])
-
 
 
     const [editando, setEditando] = useState(false)
@@ -25,10 +27,7 @@ function Home() {
     }
 
 
-    const handleAdd = () => {
-        setTasks([...tasks, task])
-        setTask("")
-    }
+    
 
     const handleDelete = (id) => {
         setTasks(tasks.filter((_, index) => index != id))
@@ -56,10 +55,11 @@ function Home() {
             {loading && <p>cargando ....</p>}
             
             <h1>Bandeja de tareas de {user}</h1>
+            <ListTasks />
             <button onClick={handleClick}>cargar</button>
             {
-                tasks.map((task, index) => {
-                    return(
+                tasks.map((task, index) => (
+                    
                         <div key={index}>
                             {editando && ideditado === index ?  (
                                 <div>
@@ -75,15 +75,15 @@ function Home() {
                             )}
                             
                         </div>
-                    )
-                })
+                    
+                ))
             }
 
-            <input value={task} type="text" placeholder="Nombre de la tarea" onChange={(e) => setTask(e.target.value)}/>
-            <button onClick={handleAdd}>Add</button>
+            <FormInput />
         </div>
     )
 
 
 }
+
 export default Home
