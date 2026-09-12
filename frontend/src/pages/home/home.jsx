@@ -2,48 +2,21 @@ import { useState } from 'react'
 import { userStore } from '../../store/userStore'
 import ListTasks from '../../components/listTasks/listTasks'
 import FormInput from '../../components/formInput/formInput'
+import Boton from '../../components/boton/boton'
+import { Edit2, PlusCircle } from 'lucide-react'
 
 function Home() {
 
     const user = userStore((state) => state.user)
-    const [tasks, setTasks] = useState([])
-
-
-    const [editando, setEditando] = useState(false)
-    const [ideditado, setIdeditado] = useState(0)
-    const [textoEditado, setTexto] = useState("")
-
-
     const [loading, setLoading] = useState(false);
+    const [isShow, setIsShow] = useState(false)
+
 
     const handleClick = async () => {
         setLoading(true);
-
         await fetchFake();
-
         setLoading(false);
     }
-
-
-
-
-    const handleEdit = (tarea, id) => {
-        setEditando(true)
-        setIdeditado(id)
-        setTexto(tarea)
-        
-    }
-
-    
-    const handleUpdate = (id) => {
-        setTasks(tasks.map((task, index) => 
-            index === id ? textoEditado : task
-        ))
-        setEditando(false)
-    }
-
-
-
 
     return(
         <div>
@@ -53,32 +26,19 @@ function Home() {
             <ListTasks />
 
 
-            {
-                /*tasks.map((task, index) => (
-                    
-                        <div key={index}>
-                            {editando && ideditado === index ?  (
-                                <div>
-                                    <input autoFocus value={textoEditado} type="text" onChange={(e) => setTexto(e.target.value)}/>
-                                    <button onClick={() => handleUpdate(index)}>Update</button>
-                                </div>
-                            ) : (
-                                <div>
-                                    <p>{task}</p>
-                                    <button onClick={() => handleDelete(index)} >del</button>
-                                    <button onClick={() => handleEdit(task, index)} >edit</button>
-                                </div>
-                            )}
-                            
-                        </div>
-                    
-                ))*/
-            }
-
-            <FormInput />
+            { !isShow ? (
+                <Boton onClick={() => setIsShow(true)}>
+                    <PlusCircle  />
+                    Añadir Tarea
+                </Boton>
+            ) : (
+                <FormInput value={setIsShow}/>
+            )}
+            
+            
+            
         </div>
     )
-
 
 }
 

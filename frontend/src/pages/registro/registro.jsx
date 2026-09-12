@@ -1,3 +1,4 @@
+import Boton from "../../components/boton/boton"
 
 
 function Registro (){
@@ -6,7 +7,9 @@ function Registro (){
             <form >
                 <input type="text" />
                 <input type="text" />
-                <button>Registrar</button>
+                <Boton>
+                    Registrar
+                </Boton>
             </form>
         </div>
     )

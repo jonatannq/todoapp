@@ -3,6 +3,8 @@ import { taskStore } from "../../store/taskStore"
 import Boton from "../boton/boton.jsx"
 import { Edit3, Trash2 } from 'lucide-react'
 import FormInput from "../formInput/formInput.jsx"
+
+
 function ListTasks(){
 
     const list = taskStore((state) => state.tasks)
@@ -31,8 +33,7 @@ function ListTasks(){
     return(
         <div>
             {
-                list.map((task, index) => (
-                   
+                list.map((task, index) => (             
                     
                     <div key={index}>
                         {editing && idEditado === index ?  (
@@ -53,12 +54,11 @@ function ListTasks(){
                         )}
                        
                     </div>
-                    
-
                 ))
             }
         </div>
     )
+
 }
 
 export default ListTasks

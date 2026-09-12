@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { userStore } from '../../store/userStore'
 import { useNavigate, Link } from 'react-router-dom';
+import Boton from '../../components/boton/boton';
 
 function Login(){
 
@@ -17,7 +18,6 @@ function Login(){
             return
         }
 
-
         setUser(userText)
         navigate("/")
     }
@@ -29,7 +29,9 @@ function Login(){
             <form onSubmit={submit}>
                 <input type="text" placeholder="Usuario" onChange={(e) => setUserText(e.target.value)}/>
                 <input type="password" />
-                <button>Ingresar</button>
+                <Boton>
+                    Ingresar
+                </Boton>
             </form>
 
             <Link to="/registro">Registrarse</Link>

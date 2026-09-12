@@ -4,14 +4,14 @@ import Boton from '../boton/boton'
 import { ArrowUp, Edit2 } from 'lucide-react'
 
 
-function FormInput(){
+function FormInput({value}){
 
     const taskfunction = taskStore((state) => state.addTask) 
     const [task, setTask] = useState("")
 
-
     const handleAdd = () => {
         const limpiar = task.trim()
+        value(false)
         if(!limpiar){     
             return
         }
@@ -22,7 +22,7 @@ function FormInput(){
 
     const handleKey = (e) => {
         if(e.key === "Escape"){
-            alert("cerrar input")
+            value(false)
         }
         if(e.key === "Enter"){
             handleAdd()
