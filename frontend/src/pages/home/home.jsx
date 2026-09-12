@@ -6,8 +6,6 @@ import FormInput from '../../components/formInput/formInput'
 function Home() {
 
     const user = userStore((state) => state.user)
-    
-    
     const [tasks, setTasks] = useState([])
 
 
@@ -27,19 +25,16 @@ function Home() {
     }
 
 
-    
 
-    const handleDelete = (id) => {
-        setTasks(tasks.filter((_, index) => index != id))
-    }
 
     const handleEdit = (tarea, id) => {
         setEditando(true)
         setIdeditado(id)
         setTexto(tarea)
+        
     }
 
-
+    
     const handleUpdate = (id) => {
         setTasks(tasks.map((task, index) => 
             index === id ? textoEditado : task
@@ -56,9 +51,10 @@ function Home() {
             
             <h1>Bandeja de tareas de {user}</h1>
             <ListTasks />
-            <button onClick={handleClick}>cargar</button>
+
+
             {
-                tasks.map((task, index) => (
+                /*tasks.map((task, index) => (
                     
                         <div key={index}>
                             {editando && ideditado === index ?  (
@@ -76,7 +72,7 @@ function Home() {
                             
                         </div>
                     
-                ))
+                ))*/
             }
 
             <FormInput />

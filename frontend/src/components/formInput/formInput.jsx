@@ -1,28 +1,40 @@
 import { useState } from 'react'
 import { taskStore } from '../../store/taskStore'
+import Boton from '../boton/boton'
+import { ArrowUp, Edit2 } from 'lucide-react'
+
 
 function FormInput(){
 
-    const taskfunction = taskStore((state) => state.loadTask)
-    const tasks = taskStore((state) => state.tasks)
+    const taskfunction = taskStore((state) => state.addTask) 
     const [task, setTask] = useState("")
 
 
     const handleAdd = () => {
-        if(!task){     
+        const limpiar = task.trim()
+        if(!limpiar){     
             return
         }
-        const arreglar = task;
-        taskfunction(arreglar)
+        taskfunction(limpiar)
         setTask("")
-        console.log(tasks)
+
     }
 
+    const handleKey = (e) => {
+        if(e.key === "Escape"){
+            alert("cerrar input")
+        }
+        if(e.key === "Enter"){
+            handleAdd()
+        }
+    }
 
     return(
         <div>
-            <input value={task} type="text" placeholder="Nombre de la tarea" onChange={(e) => setTask(e.target.value)}/>
-            <button onClick={handleAdd} >Add</button>
+            <input onKeyDown={handleKey} value={task} type="text" placeholder="Nombre de la tarea" onChange={(e) => setTask(e.target.value)}/>
+            <Boton onClick={handleAdd} >
+                <ArrowUp />
+            </Boton>
         </div>
     )
 }
