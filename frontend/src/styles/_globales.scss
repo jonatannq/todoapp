@@ -1,0 +1,10 @@
+@use 'variables' as v;
+
+body{
+    margin: 0;
+    font-family: v.$font;
+}
+
+h1, h2, h3, p{
+    margin: 0;
+}

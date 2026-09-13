@@ -1,0 +1,23 @@
+input[type="radio"]:hover {
+  cursor: pointer;
+}
+
+.red{
+  accent-color: grey;
+  &:hover{
+    border-color: red;
+  }
+}
+
+
+.task{
+  display: flex;
+  align-items: center;
+}
+.task:hover .showTools{
+  visibility: visible;
+}
+
+.showTools{
+  visibility: hidden;
+}

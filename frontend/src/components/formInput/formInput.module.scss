@@ -1,0 +1,17 @@
+
+
+.content{
+
+    border: 2px solid grey;
+    padding: 0.5rem;
+    padding-bottom: 2rem;
+    border-radius: 1rem;
+    input{
+        
+        border: none;
+        &:focus-within{
+            outline: red;
+        }
+    }
+    
+}

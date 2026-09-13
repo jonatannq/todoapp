@@ -1,0 +1,39 @@
+
+.boton{
+    border: none;
+    fill: black;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.login{
+    padding: 0.1rem 1rem;
+    border-radius: 1rem;
+    color: rgb(83, 83, 83);
+    background-color: rgb(166, 201, 201);
+    &:hover{
+        background-color: rgb(187, 255, 255);
+    }
+}
+
+.delete{
+    color: red;
+    background-color: transparent;
+}
+.edit{
+    color: grey;
+    background-color: transparent;
+}
+
+
+.add {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: red;
+    background-color: transparent;
+    &:hover{
+        color:black;
+    }
+}

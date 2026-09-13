@@ -1,9 +1,8 @@
 import { useState } from "react"
 import { taskStore } from "../../store/taskStore"
 import Boton from "../boton/boton.jsx"
-import { Edit3, Trash2 } from 'lucide-react'
-import FormInput from "../formInput/formInput.jsx"
-
+import { CheckIcon, Edit3, Trash2, XIcon } from 'lucide-react'
+import styles from './listTasks.module.scss'
 
 function ListTasks(){
 
@@ -11,6 +10,7 @@ function ListTasks(){
     const deleteTask = taskStore((state) => state.deleteTask)
     const editTask = taskStore((state) => state.editTask)
     const [editing, setEditing] = useState(false)
+    
     const [idEditado, setIdEditado] = useState(0)
     const [textEdit, setTextEdit] = useState("")
 
@@ -37,19 +37,30 @@ function ListTasks(){
                     
                     <div key={index}>
                         {editing && idEditado === index ?  (
-                            <div>
-                                <input type="text" value={textEdit} onChange={(e) => setTextEdit(e.target.value)}/>
-                                <Boton onClick={() => handleUpdate(index, textEdit)}>update</Boton>
+                            <div >
+                                <input key={index} autoFocus type="text" value={textEdit} onChange={(e) => setTextEdit(e.target.value)}/>
+                                <Boton onClick={() => handleUpdate(index, textEdit)}>
+                                    <CheckIcon />
+                                </Boton>
+                                <Boton onClick={() => setEditing(false)}>
+                                    <XIcon/>
+                                </Boton>
                             </div>
                         ) : (
-                            <div>
-                                <p>{task}</p>
-                                <Boton onClick={() => handleDelete(index)} >
-                                    <Trash2  />
-                                </Boton>
-                                <Boton onClick={() => handleEdit(task, index)} >
-                                    <Edit3 />
-                                </Boton>
+                            <div className={styles.task}>
+                                
+
+                                
+                                <input className={styles.red} type="radio" />
+                                <label>{task}</label>
+                                <div className={styles.showTools}>
+                                    <Boton variant="delete"onClick={() => handleDelete(index)} >
+                                        <Trash2  />
+                                    </Boton>
+                                    <Boton variant="edit" onClick={() => handleEdit(task, index)} >
+                                        <Edit3 />
+                                    </Boton>
+                                </div>
                             </div>
                         )}
                        

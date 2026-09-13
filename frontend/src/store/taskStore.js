@@ -2,6 +2,7 @@ import { create } from 'zustand'
 
 export const taskStore = create((set) => ({
     tasks: [],
+    isEdit: false,
 
     addTask: (task) => 
         set((state) => ({
@@ -19,7 +20,10 @@ export const taskStore = create((set) => ({
 
                return index == id ? newTask : task
             })
-        }))
+        })),
     
-        
+    setEdit: (value) => 
+        set({isEdit: value}),
+
+    
 }))

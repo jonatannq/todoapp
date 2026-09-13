@@ -1,7 +1,11 @@
+import styles from './boton.module.scss'
 
-function Boton({children, onClick}) {
+
+function Boton({children, variant, onClick}) {
     return(
-        <button onClick={onClick}>{children}</button>
+        <button className={`${styles.boton} ${styles[variant]}`} onClick={onClick}>
+            <p>{children}</p>
+        </button>
     )
 }
 

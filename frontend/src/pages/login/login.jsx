@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { userStore } from '../../store/userStore'
 import { useNavigate, Link } from 'react-router-dom';
 import Boton from '../../components/boton/boton';
+import styles from './login.module.scss'
 
 function Login(){
 
@@ -23,18 +24,18 @@ function Login(){
     }
 
     return(
-        <div>
+        <div className={styles.content}>
             <p>Inicio de sesion</p>
 
             <form onSubmit={submit}>
                 <input type="text" placeholder="Usuario" onChange={(e) => setUserText(e.target.value)}/>
-                <input type="password" />
-                <Boton>
+                <input type="password" placeholder='Contraseña' />
+                <Boton variant="login">
                     Ingresar
                 </Boton>
             </form>
 
-            <Link to="/registro">Registrarse</Link>
+            <Link className={styles.link} to="/registro">Registrarse</Link>
 
         </div>
     )
