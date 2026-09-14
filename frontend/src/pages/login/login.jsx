@@ -24,20 +24,20 @@ function Login(){
     }
 
     return(
-        <div className={styles.content}>
-            <p>Inicio de sesion</p>
+    <div className={styles.content}>
+        <p>Inicio de sesion</p>
 
-            <form onSubmit={submit}>
-                <input type="text" placeholder="Usuario" onChange={(e) => setUserText(e.target.value)}/>
-                <input type="password" placeholder='Contraseña' />
-                <Boton variant="login">
-                    Ingresar
-                </Boton>
-            </form>
+        <form onSubmit={submit}>
+            <input type="text" placeholder="Usuario" onChange={(e) => setUserText(e.target.value)}/>
+            <input type="password" placeholder='Contraseña' />
+            <Boton variant="login">
+                Ingresar
+            </Boton>
+        </form>
 
-            <Link className={styles.link} to="/registro">Registrarse</Link>
+        <Link className={styles.link} to="/registro">Registrarse</Link>
 
-        </div>
+    </div>
     )
 }
 

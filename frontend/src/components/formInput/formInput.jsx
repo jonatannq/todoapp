@@ -11,7 +11,6 @@ export default function FormInput({value}){
     const taskfunction = taskStore((state) => state.addTask) 
     const [task, setTask] = useState("")
 
-
     function handleKey (e){
     if(e.key === "Escape"){
             value(false)
@@ -20,8 +19,6 @@ export default function FormInput({value}){
             handleAdd()
         }
     }
-
-
 
     const handleAdd = async () => {
         const limpiar = task.trim()
@@ -48,21 +45,25 @@ export default function FormInput({value}){
     }
 
     return(
-        <div className={styles.content}>
-            <input autoFocus onKeyDown={handleKey} value={task} type="text" placeholder="Nombre de la tarea" onChange={(e) => setTask(e.target.value)}/>
-            { !task ? (
-                <Boton >
-                    <CircleQuestionMark />
-                </Boton>
-            ) : (
-                <Boton onClick={handleAdd} >
-                    <ArrowUp />
-                </Boton>
-            )
-
-            }
-            
-        </div>
+    <div className={styles.content}>
+        <input 
+            autoFocus 
+            onKeyDown={handleKey} 
+            value={task} type="text" 
+            placeholder="Nombre de la tarea" 
+            onChange={(e) => setTask(e.target.value)
+        }/>
+        
+        { !task ? (
+            <Boton >
+                <CircleQuestionMark />
+            </Boton>
+        ) : (
+            <Boton onClick={handleAdd} >
+                <ArrowUp />
+            </Boton>
+        )}      
+    </div>
     )
 }
 

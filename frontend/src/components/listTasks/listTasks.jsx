@@ -6,24 +6,34 @@ import styles from './listTasks.module.scss'
 
 function ListTasks(){
 
+    const [editing, setEditing] = useState(false)
+    const [idEditado, setIdEditado] = useState(0)
+    const [textEdit, setTextEdit] = useState("")
+
     const list = taskStore((state) => state.tasks)
     const setTasks = taskStore((state) => state.setTasks)
     const deleteTask = taskStore((state) => state.deleteTask)
     const editTask = taskStore((state) => state.editTask)
 
-    const get = async () => {
-        const respuesta = await fetch("http://localhost:3000/task")
-        const data = await respuesta.json()
-        setTasks(data)
+    const getTasks = async () => {
+        try {
+            const respuesta = await fetch("http://localhost:3000/task")
+            if(!respuesta.ok){
+                throw new Error(`Error HTTP: ${respuesta.status}`)
+            }
+            const data = await respuesta.json()
+            setTasks(data)
+
+        } catch (error) {
+            console.log("Error al obtener las tareas")
+        }
     }
 
     useEffect(() => {
-        get()
+        getTasks()
     },[])
 
-    const [editing, setEditing] = useState(false)
-    const [idEditado, setIdEditado] = useState(0)
-    const [textEdit, setTextEdit] = useState("")
+    
 
 
 
@@ -62,39 +72,38 @@ function ListTasks(){
 
 
     return(
-        <div>
-            {list.map((task) => (              
-                <div key={task.id}>
-                    {editing && idEditado === task.id ?  (
-                        <div>
-                            <input key={task.id} autoFocus type="text" value={textEdit} onChange={(e) => setTextEdit(e.target.value)}/>
-                            <Boton onClick={() => handleUpdate(task.id, textEdit)}>
-                                <CheckIcon />
+    <div>
+        {list.map((task) => (              
+            <div key={task.id}>
+                {editing && idEditado === task.id ?  (
+                    <div>
+                        <input key={task.id} autoFocus type="text" value={textEdit} onChange={(e) => setTextEdit(e.target.value)}/>
+                        <Boton onClick={() => handleUpdate(task.id, textEdit)}>
+                            <CheckIcon />
+                        </Boton>
+                        <Boton onClick={() => setEditing(false)}>
+                            <XIcon/>
+                        </Boton>
+                    </div>
+                ) : (
+                    <div className={styles.task}>                    
+                        <input className={styles.red} type="radio" />
+                        <label>{task.title}</label>
+
+                        <div className={styles.showTools}>
+                            <Boton variant="delete"onClick={() => handleDelete(task.id)} >
+                                <Trash2  />
                             </Boton>
-                            <Boton onClick={() => setEditing(false)}>
-                                <XIcon/>
+                            <Boton variant="edit" onClick={() => handleEdit(task.title, task.id)} >
+                                <Edit3 />
                             </Boton>
                         </div>
-                    ) : (
-                        <div className={styles.task}>                    
-                            <input className={styles.red} type="radio" />
-                            <label>{task.title}</label>
-                            <div className={styles.showTools}>
-                                <Boton variant="delete"onClick={() => handleDelete(task.id)} >
-                                    <Trash2  />
-                                </Boton>
-                                <Boton variant="edit" onClick={() => handleEdit(task.title, task.id)} >
-                                    <Edit3 />
-                                </Boton>
-                            </div>
-                        </div>
+                    </div>
                     )}
                        
-                </div>
-            ))
-            }
-
-        </div>
+            </div>
+        ))}
+    </div>
     )
 
 }
