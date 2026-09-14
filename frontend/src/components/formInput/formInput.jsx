@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { taskStore } from '../../store/taskStore'
 import Boton from '../boton/boton'
-import { ArrowUp, Cable, CarBattery, CircleQuestionMark, CurlyBraces, QrCode } from 'lucide-react'
+import { ArrowUp,  CircleQuestionMark } from 'lucide-react'
 import styles from './formInput.module.scss'
 
 
@@ -19,17 +19,30 @@ export default function FormInput({value}){
         if(e.key === "Enter"){
             handleAdd()
         }
-}
+    }
 
 
 
-    const handleAdd = () => {
+    const handleAdd = async () => {
         const limpiar = task.trim()
         value(false)
         if(!limpiar){     
             return
         }
-        taskfunction(limpiar)
+
+        const respuesta = await fetch("http://localhost:3000/task",{
+            method: "POST", 
+            headers:  {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                task: limpiar
+            })
+        })
+
+        const data = await respuesta.json()
+        console.log(data)
+        taskfunction(data)
         setTask("")
 
     }

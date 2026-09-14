@@ -4,6 +4,10 @@ export const taskStore = create((set) => ({
     tasks: [],
     isEdit: false,
 
+    setTasks: (tasks) => 
+        set({tasks: tasks}),
+ 
+
     addTask: (task) => 
         set((state) => ({
             tasks: [...state.tasks, task]
@@ -11,14 +15,13 @@ export const taskStore = create((set) => ({
 
     deleteTask: (id) =>
         set((state) => ({
-            tasks: state.tasks.filter((_, index) => index != id)
+            tasks: state.tasks.filter((task) => task.id != id)
         })),
 
     editTask: (id, newTask) => 
         set((state) => ({
-            tasks: state.tasks.map((task, index) => {
-
-               return index == id ? newTask : task
+            tasks: state.tasks.map((task) => {
+               return task.id === id ? {...task, title: newTask} : task
             })
         })),
     
