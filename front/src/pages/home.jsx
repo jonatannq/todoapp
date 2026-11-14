@@ -5,7 +5,8 @@ function Home() {
 
     const [task, setTask] = useState("")
     const [tasks, setTasks] = useState([])
-
+    const [newText, setNewText] = useState("")
+    const [editId, setEditId] = useState(null)
 
     const handleSubmit = (e) => {
 
@@ -19,23 +20,28 @@ function Home() {
 
         setTasks(prev => [...prev, taskObj])
         setTask("")
-        console.log(tasks)
+
     }
 
 
     const handleDelete = (id) => {
-
         setTasks(prev => prev.filter(task => task.id !== id))
-
     }
 
-    const handleEdit = (id) => {
-
-        console.log("edit ind:", id)
-        // set para editar no probado 
-        // setTasks( prev => prev.map(task => task.id === id ? <p>et</p> : { task }) )
+    const handleEdit = (id, name) => {
+        setEditId(id)
+        setNewText(name)
     }
 
+    const handleSave = (id) => {
+        setTasks(prev => prev.map(
+            task => task.id === id ?
+                { ...task, name: newText }
+                :
+                task
+        ))
+        setEditId(null)
+    }
 
     return (
         <main>
@@ -44,15 +50,28 @@ function Home() {
             {tasks.map(task => {
                 return (
                     <div key={task.id}>
-                        <p>{task.name}</p>
 
-                        <button onClick={() => handleDelete(task.id)}>
-                            Del
-                        </button>
+                        {task.id === editId ?
+                            <div>
+                                <input type="text" value={newText} onChange={(e) => setNewText(e.target.value)} />
+                                <button onClick={() => handleSave(task.id)}>guardar</button>
+                            </div>
+                            :
+                            <div className="">
+                                <span>radio</span>
+                                <p>{task.name}</p>
 
-                        <button onClick={() => handleEdit(task.id)}>
-                            edit
-                        </button>
+                                <button onClick={() => handleDelete(task.id)}>
+                                    Del
+                                </button>
+
+                                <button onClick={() => handleEdit(task.id, task.name)}>
+                                    edit
+                                </button>
+                            </div>
+
+                        }
+
                     </div>
                 )
             })
