@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import { v4 as uuidv4 } from 'uuid'
 
 function Home() {
 
@@ -7,63 +7,64 @@ function Home() {
     const [tasks, setTasks] = useState([])
 
 
-    const handleSubmit = ( e ) => {
+    const handleSubmit = (e) => {
 
         e.preventDefault()
 
         const taskObj = {
-            id: Date.now(),
-            name:  task, 
-            complete: false, 
+            id: uuidv4(),
+            name: task,
+            complete: false,
         }
 
-        setTasks([ ...tasks, taskObj ])
+        setTasks(prev => [...prev, taskObj])
         setTask("")
-
+        console.log(tasks)
     }
 
 
-    const handleDelete = ( id ) => {
+    const handleDelete = (id) => {
 
-        setTasks( tasks.filter(( task ) => task.id !== id) )
+        setTasks(prev => prev.filter(task => task.id !== id))
 
     }
 
-    const handleEdit = ( id ) => {
+    const handleEdit = (id) => {
 
         console.log("edit ind:", id)
         // set para editar no probado 
-        // setTasks( tasks.map((task) => task.id === id ? <p>et</p> : { task }) )
+        // setTasks( prev => prev.map(task => task.id === id ? <p>et</p> : { task }) )
     }
 
 
-    return(
+    return (
         <main>
             <h1>Bandeja de Tareas</h1>
 
-            {tasks.map(( task ) => {
+            {tasks.map(task => {
                 return (
-                    <div key={ task.id }>
-                        <p>{ task.name }</p>
+                    <div key={task.id}>
+                        <p>{task.name}</p>
 
-                        <button onClick={() => handleDelete( task.id )}>
+                        <button onClick={() => handleDelete(task.id)}>
                             Del
                         </button>
 
-                        <button onClick={() => handleEdit( task.id )}>
+                        <button onClick={() => handleEdit(task.id)}>
                             edit
                         </button>
                     </div>
                 )
-            })}
-            
+            })
+            }
 
-            <form onSubmit={ handleSubmit }>
-                <input 
-                    type="text" 
-                    value={ task } 
-                    placeholder="Escribe tu tarea" 
-                    onChange={( e ) => setTask( e.target.value )}
+
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={task}
+                    placeholder="Escribe tu tarea"
+                    onChange={(e) => setTask(e.target.value)}
                 />
 
                 <button>
