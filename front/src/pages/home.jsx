@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { v4 as uuidv4 } from 'uuid'
-import { Check, CheckCheckIcon, Flag } from 'lucide-react'
 import style from './home.module.css'
+import Modal from '../components/modal/modal'
+import Task from "../components/task/task"
 
 function Home() {
 
@@ -10,6 +11,9 @@ function Home() {
     const [newText, setNewText] = useState("")
     const [editId, setEditId] = useState(null)
     const [show, setShow] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+
+
 
     const handleSubmit = (e) => {
 
@@ -63,15 +67,15 @@ function Home() {
         setEditId(null)
     }
 
-    const completeTask = (e, id) => {
-        e.stopPropagation()
+    const completeTask = (id) => {
         console.log("tarea completada con id: ", id)
     }
 
     return (
         <main>
             {/*configurar fondo con esta logica */
-                tasks.length > 0 ? <p>true</p> : <p>false</p>}
+                tasks.length < 1 && <p>fondo</p>
+            }
             <h1>Bandeja de Tareas</h1>
 
             {tasks.map(task => {
@@ -86,35 +90,7 @@ function Home() {
 
                             </div>
                             :
-                            <div className={style.task}>
-                                <span className={style.checkCircle} onClick={(e) => completeTask(e, task.id)}>
-                                    <Check className={style.check} size={15} />
-                                </span>
-
-                                <p>{task.name}</p>
-
-                                <button onClick={() => handleDelete(task.id)}>
-                                    Del
-                                </button>
-
-                                <button onClick={() => handleEdit(task.id, task.name)}>
-                                    edit
-                                </button>
-                                <button onClick={() => console.log("prioridad 1")}>
-                                    <Flag />
-                                </button>
-
-                                <button onClick={() => console.log("prioridad 2")}>
-                                    <Flag />
-                                </button>
-                                <button onClick={() => console.log("prioridad 3")}>
-                                    <Flag />
-                                </button>
-                                <button onClick={() => console.log("prioridad 4")}>
-                                    <Flag />
-                                </button>
-                            </div>
-
+                            <Task task={task} />
                         }
 
                     </div>
@@ -133,8 +109,6 @@ function Home() {
                             onChange={(e) => setTask(e.target.value)}
                         />
 
-
-
                         <button>
                             Guardar tareas
                         </button>
@@ -143,9 +117,10 @@ function Home() {
                 </>
                 :
                 <>
-                    <button onClick={() => setShow(!show)}>Añadir tarea</button>
-
+                    <button onClick={() => setShow(true)}>Añadir tarea</button>
                 </>}
+
+            {showModal && <Modal />}
         </main>
     )
 }
